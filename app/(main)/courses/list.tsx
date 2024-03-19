@@ -4,6 +4,7 @@ import React, { useTransition } from 'react'
 import Card from './card';
 import { useRouter } from 'next/navigation';
 import { upsertUserProgress } from '@/actions/user-progress';
+import { toast } from 'sonner';
 
 type Props = {
     courses: typeof courses.$inferSelect[];
@@ -22,6 +23,7 @@ function List({courses, activeCourseId}: Props) {
 
     startTransition(() => {
       upsertUserProgress(id)
+      .catch(() => toast.error("Something went wrong."))
     })
   }
 
@@ -30,7 +32,7 @@ function List({courses, activeCourseId}: Props) {
     lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4">
         {courses.map((course) => (
             <Card key={course.id} id={course.id} title={course.title}
-            imageSrc={course.imageSrc} onClick={onClick} disabled={false} 
+            imageSrc={course.imageSrc} onClick={onClick} disabled={pending} 
             active={course.id === activeCourseId}/>
         ))}
     </div>
