@@ -13,6 +13,11 @@ const main = async () => {
         console.log('seeding database')
         await db.delete(schema.courses)
         await db.delete(schema.userProgress)
+        await db.delete(schema.units)
+        await db.delete(schema.lessons)
+        await db.delete(schema.challenges)
+        await db.delete(schema.challengeOptions)
+        await db.delete(schema.challengeProgress)
 
         await db.insert(schema.courses).values([
             {
@@ -37,6 +42,15 @@ const main = async () => {
             },
         ])
 
+        await db.insert(schema.units).values([
+            {
+                id: 1,
+                courseId: 1, // spanish
+                title: "Unit 1",
+                description: "Learn the basics of Spanish",
+                order: 1,
+            }
+        ])
         console.log('seeding finished')
     } catch (error) {
         console.error(error)
