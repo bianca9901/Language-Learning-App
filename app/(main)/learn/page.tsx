@@ -8,9 +8,12 @@ import UserProgress from "@/components/ui/user-progress";
 
 const LearnPage = async () => {
   const userProgressData = getUserProgress();
-  const unitsData = getUnits()
+  const unitsData = getUnits();
 
-  const [userProgress, units] = await Promise.all([userProgressData, unitsData]);
+  const [userProgress, units] = await Promise.all([
+    userProgressData,
+    unitsData,
+  ]);
 
   if (!userProgress || !userProgress.activeCourse) {
     redirect("/courses");
